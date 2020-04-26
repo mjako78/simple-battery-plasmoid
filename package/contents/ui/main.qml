@@ -65,28 +65,49 @@ Item {
   Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
   Plasmoid.fullRepresentation: Item {
-    Layout.minimumWidth: units.iconSizes.medium * 9
+    Layout.minimumWidth: units.iconSizes.medium * 5
     // Layout.minimumHeight: units.gridUnit * 15
 
     property bool isOnBattery: pmSource.data[acAdapterKey][acPluggedKey] == false
     property int batteryPercent: pmSource.data[batteryKey][batteryPercentKey]
 
-    ColumnLayout {
-      spacing: 2
+    RowLayout {
+      anchors.fill: parent
 
-      Text {
-        text: "SIMPLE BATTERY MONITOR"
-        color: theme.textColor
-        font.pixelSize: height
+      Image {
+        Layout.leftMargin: 10
+        Layout.preferredWidth: 75
+        Layout.preferredHeight: 75
+        smooth: true
+        fillMode: Image.PreserveAspectFit
+        source: chooseBatteryIcon()
       }
 
       PlasmaComponents.Label {
-        text: "IsOnBattery: " + isOnBattery
+        text: prettyPrintPercent()
+        font.pixelSize: 25
+        Layout.rightMargin: 10
       }
+    }
 
-      PlasmaComponents.Label {
-        text: "BatteryPercent: " + batteryPercent + "%"
+    function prettyPrintPercent() {
+      return batteryPercent + " %"
+    }
+
+    function chooseBatteryIcon() {
+      var iconName = "battery_100"
+      if (!isOnBattery) {
+        iconName = "battery_charging"
+      } else if (batteryPercent > 60) {
+        iconName = "battery_80"
+      } else if (batteryPercent > 40) {
+        iconName = "battery_60"
+      } else if (batteryPercent > 20) {
+        iconName = "battery_40"
+      } else {
+        iconName = "battery_20"
       }
+      return "../icons/" + iconName + ".png"
     }
   }
 }
