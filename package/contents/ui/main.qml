@@ -18,34 +18,13 @@ Item {
   property QtObject pmSource: PlasmaCore.DataSource {
     id: pmSource
     engine: "powermanagement"
-    // connectedSources: sources
-    // Get sources only for Battery and AC Adapter
     connectedSources: [batteryKey, acAdapterKey]
     interval: 1000
-    // onSourceAdded: {
-    //   console.log("[DEBUG] - onSourceAdded - ", source)
-    //   disconnectSource(source)
-    //   connectSource(source)
-    // }
-    // onSourceRemoved: {
-    //   console.log("[DEBUG] - onSourceRemoved - ", source)
-    //   disconnectSource(source)
-    // }
-    // onDataChanged: {
-    //   console.log("[DEBUG] - onDataChanged")
-    // }
     onNewData: {
       console.log("[DEBUG] - onNewData")
     }
   }
 
-  // DataModel
-  //  property QtObject batteries: PlasmaCore.DataModel {
-  //   id: batteries
-  //   dataSource: pmSource
-  //   sourceFilter: "Battery[0-9]+"
-  // }
-  
   function myLog() {
     console.log("*** LOGGING PM_SOURCE ***")
 		for (var i = 0; i < pmSource.sources.length; i++) {
@@ -57,10 +36,10 @@ Item {
 		}
 	}
 
-  Component.onCompleted: {
-    console.log("[DEBUG] - onCompleted")
-    myLog()
-  }
+  // Component.onCompleted: {
+  //   console.log("[DEBUG] - onCompleted")
+  //   myLog()
+  // }
 
   Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
