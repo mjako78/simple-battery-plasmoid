@@ -20,6 +20,15 @@ Item {
     engine: "powermanagement"
     connectedSources: [batteryKey, acAdapterKey]
     interval: 1000
+    onSourceAdded: {
+      console.log("[DEBUG] - onSourceAdded")
+      disconnectSource(source)
+      connectSource(source)
+    }
+    onSourceRemoved: {
+      console.log("[DEBUG] - onSourceAdded")
+      disconnectSource(source)
+    }
     onNewData: {
       console.log("[DEBUG] - onNewData")
     }
