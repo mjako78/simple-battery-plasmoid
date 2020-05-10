@@ -86,6 +86,8 @@ Item {
       var iconName = "battery_100"
       if (!isOnBattery) {
         iconName = "battery_charging"
+      } else if (batteryPercent > 80) {
+        iconName = "battery_100"
       } else if (batteryPercent > 60) {
         iconName = "battery_80"
       } else if (batteryPercent > 40) {
