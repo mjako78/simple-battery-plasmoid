@@ -1,0 +1,23 @@
+{
+    "KPlugin": {
+        "Authors": [
+            {
+                "Email": "mauro.giaco@gmail.com",
+                "Name": "Mauro Giacomini"
+            }
+        ],
+        "Category": "System Information",
+        "Dependencies": [
+        ],
+        "Icon": "battery",
+        "Id": "org.kde.plasma.simplebattery",
+        "Name": "Simple Battery Monitor",
+        "ServiceTypes": [
+            "Plasma/Applet"
+        ],
+        "Version": "5",
+        "Website": "https://github.com/mjako78/simple-battery-plasmoid"
+    },
+    "X-Plasma-API": "declarativeappletscript",
+    "X-Plasma-MainScript": "ui/main.qml"
+}
