@@ -7,6 +7,8 @@ import org.kde.plasma.components 2.0 as PlasmaComponents
 Item {
   id: main
 
+  property bool textOverIcon: Plasmoid.configuration.textOverIcon
+
   // Common used keys
   readonly property string batteryKey: "Battery"
   readonly property string batteryStateKey: "State"
@@ -22,6 +24,7 @@ Item {
     interval: 1000
     onSourceAdded: {
       console.log("[DEBUG] - onSourceAdded")
+      console.log("textOverIcon:" + textOverIcon)
       disconnectSource(source)
       connectSource(source)
     }
@@ -34,27 +37,11 @@ Item {
     }
   }
 
-  function myLog() {
-    console.log("*** LOGGING PM_SOURCE ***")
-		for (var i = 0; i < pmSource.sources.length; i++) {
-			var sourceName = pmSource.sources[i]
-			var source = pmSource.data[sourceName]
-			for (var key in source) {
-				console.log('pmSource.data["'+sourceName+'"]["'+key+'"] =', source[key])
-			}
-		}
-	}
-
-  // Component.onCompleted: {
-  //   console.log("[DEBUG] - onCompleted")
-  //   myLog()
-  // }
-
   Plasmoid.preferredRepresentation: Plasmoid.fullRepresentation
 
   Plasmoid.fullRepresentation: Item {
-    Layout.minimumWidth: units.iconSizes.medium * 5
-    // Layout.minimumHeight: units.gridUnit * 15
+    // Layout.minimumWidth: units.iconSizes.medium * 5
+    Layout.minimumWidth: textOverIcon ? units.iconSizes.medium : units.iconSizes.medium * 5
 
     property bool isOnBattery: pmSource.data[acAdapterKey][acPluggedKey] == false
     property int batteryPercent: pmSource.data[batteryKey][batteryPercentKey]
@@ -63,7 +50,7 @@ Item {
       anchors.fill: parent
 
       Image {
-        Layout.leftMargin: 10
+        // Layout.leftMargin: 10
         Layout.preferredWidth: 75
         Layout.preferredHeight: 75
         smooth: true
@@ -74,9 +61,16 @@ Item {
       PlasmaComponents.Label {
         text: prettyPrintPercent()
         font.pixelSize: 25
-        Layout.rightMargin: 10
+        // Layout.rightMargin: 10
+        // font.pixelSize: 20
+        // anchors.left: parent.left
+        // anchors.leftMargin: 20
       }
     }
+
+    // function getWidth() {
+    //   return textOverIcon ? units.iconSizes.medium : units.iconSizes.medium * 5
+    // }
 
     function prettyPrintPercent() {
       return batteryPercent + " %"
